@@ -25,6 +25,7 @@ def init_token():
     with open("config/config.yaml",encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
 
+
     if Context.get("token"):   # 如果已经有 token，就不重复登录
         return
 
