@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'ipad_pro_win11' } # 指定本地windows节点
 
     environment{
         VENV_PATH = "${WORKSPACE}\\.venv"
