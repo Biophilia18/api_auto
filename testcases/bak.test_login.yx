@@ -1,0 +1,25 @@
+# ✅ 流程用例文件结构为 List（- 开头），支持一个 YAML 多接口顺序执行
+-
+  feature: Auth模块                # ✅ 对应 Allure Feature + 分模块报告
+  story: 用户登录接口              # ✅ 用例功能归类
+  title: 登录成功获取token         # ✅ 用例名称，会展示在测试报告中
+  # ===== 请求信息 =====
+  request:
+    method: post
+    url: /auth/login             # ✅ 用相对路径，自动拼 base_url
+    json:
+      username: "lee"
+      password: "123456"
+  # ===== 提取信息 =====
+  extract:
+    token: ["json", "data.access_token"]
+    # ✅ 简化为 ["数据类型", "点路径"]，舍弃数组下标 0，语义更清晰
+    # ✅ 默认支持 json，未来如果用 text/xml 也容易扩展
+  # ===== 断言校验 =====
+  validate:
+    equals:                       # ✅ 精确匹配，接口自动化中最核心类型
+      状态码为200: [ 200, status_code ]   # ✅ 写法优化：期望值在前，更直观
+      # 业务码为0: [ 0, json.data.code ]     # ✅ 支持取JSON字段路径
+    contains:
+      返回中包含token字段: ["access_token", text]
+      # ✅ text 表示在 response.text 中查找

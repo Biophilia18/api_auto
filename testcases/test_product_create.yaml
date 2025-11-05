@@ -1,0 +1,36 @@
+- feature: Product模块
+  story: 创建商品接口
+  title: 创建成功-数据驱动
+
+  #  params_file: data/products.csv
+  params:
+    - { name: "debug01", sku: "sku-bug01", price: 1999, description: "数据库校验01" }
+    - { name: "debug02", sku: "sku-bug02", price: 1999, description: "数据库校验01" }
+
+  request:
+    method: post
+    url: /product/create
+    headers:
+      Authorization: "Bearer ${token}"
+    json:
+      name: "${name}"
+      sku: "${sku}"
+      price: "${price}"
+      description: "${description}"
+  # ===== 提取信息 =====
+  extract:
+#    is_active: [ "json", "data.is_active" ]
+    id: [ "json", "data.id" ]
+
+  validate:
+    equals:
+      状态码为200: [ 200, status_code ]
+      message字段为success: [ success, "json.message" ]
+
+    contains:
+      返回中包含id字段: [ "id", text ]
+
+    db_validate:
+      数据是否正确存储:
+        sql: "select name, sku from products where id=${id}"
+        expect: [ "${name}", "${sku}" ]

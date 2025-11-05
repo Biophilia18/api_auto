@@ -1,0 +1,17 @@
+base_url: "http://111.228.4.79:5050"
+
+username: "lee"
+password: "123456"
+
+db:
+  host: "111.228.4.79"
+  port: 3307
+  user: "root"
+  password: "123456"
+  database: "wmsmini"
+  charset: "utf8mb4"
+# DB 连接默认是 autocommit=False（MySQL/InnoDB 默认事务隔离：REPEATABLE-READ）。
+# 第一次 SELECT 开启了一个事务并建立了“快照”
+# 后续 SELECT 都在同一个事务里继续读同一个快照
+# 其他会话（你的接口服务）刚插入的新行，在当前事务提交前是不可见的
+#→ 就会出现「第二条参数已创建成功，但本连接查询不到」的现象
