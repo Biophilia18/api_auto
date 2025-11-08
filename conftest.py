@@ -33,9 +33,9 @@ def init_token():
                           json={"username": cfg["username"], "password": cfg["password"]})
     token = resp.json().get("data", {}).get("access_token")
     if not token:
-        raise RuntimeError("登录失败，无法获取token")
+        raise RuntimeError("login failed ,no token acquired")
     Context.set("token", token)
-    print("[init_token] ✅ 已获取 token：", token[:10], "...")
+    print("[init_token] Got token successful：", token[:10], "...")
 
 
 
