@@ -2,8 +2,10 @@
   story: 创建商品接口
   title: 创建成功-数据驱动
 
-  params_file: data/products.csv
-
+#  params_file: data/products.csv
+  params:
+    - { name: "freestyle1", sku: "sku-fs1", price: 2999, description: "自由风格" }
+    - { name: "freestyle2", sku: "sku-fs2", price: 3999, description: "自由风格2" }
   request:
     method: post
     url: /product/create
